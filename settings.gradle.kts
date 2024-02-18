@@ -1,4 +1,4 @@
-rootProject.name = "com.ktor_mysql_backend.ktor_mysql_backend"
+rootProject.name = "ktor_mysql_backend"
 
 pluginManagement {
     repositories {
