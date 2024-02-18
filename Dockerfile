@@ -6,5 +6,5 @@ RUN gradle buildFatJar --no-daemon
 FROM openjdk:11
 EXPOSE 8080:8080
 RUN mkdir /app
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/ktor_mysql_backend.jar
+COPY --from=static/*.sql  build/home/gradle/src/build/libs/*.jar build/app/ktor_mysql_backend.jar
 ENTRYPOINT ["java","-jar","/app/ktor_mysql_backend.jar"]
