@@ -7,6 +7,6 @@ FROM openjdk:11
 EXPOSE 8080:8080
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/ktor-mysql-backend.jar
-COPY  /static/*.sql /static/
+COPY  /src/static/*.sql /static/
 
 ENTRYPOINT ["java","-jar","/app/ktor-mysql-backend.jar"]
