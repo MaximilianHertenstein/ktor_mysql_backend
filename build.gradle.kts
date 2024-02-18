@@ -57,6 +57,7 @@ dependencies {
     //implementation("com.h2database:h2:1.4.200")
     implementation("org.jdbi:jdbi3-kotlin:$jdbi_version")
     implementation("org.jdbi:jdbi3-kotlin-sqlobject:$jdbi_version")
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
     // implementation(kotlin("script-runtime"))
 
     //implementation("io.insert-koin:koin-ktor:$koinKtor")
