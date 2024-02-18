@@ -14,7 +14,8 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     install(CORS){//allowHeader(HttpHeaders.ContentType)
-        allowHeader(HttpHeaders.AccessControlAllowOrigin)}
+        allowHeader(HttpHeaders.AccessControlAllowOrigin)
+        anyHost()}
     configureSerialization()
     configureDatabases()
     configureMonitoring()
