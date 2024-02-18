@@ -15,7 +15,6 @@ import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import java.io.File
 
 
-
 fun prepareJDBI(): Jdbi {
     val jdbi = Jdbi.create("jdbc:h2:mem:test;MODE=MYSQL;DB_CLOSE_DELAY=-1;", "username", "password")
     jdbi.installPlugin(KotlinPlugin())
@@ -60,8 +59,9 @@ fun Application.hostDB(slqScriptName:String){
             call.respond(queryRes)
         }
         catch (error: JdbiException){
-
-            call.respond(error.message.toString())
+            val x = if (error.cause !=null)  {
+                error.cause!!.message} else {error.message}
+            call.respond(x ?: "Error")
         }
 
 
