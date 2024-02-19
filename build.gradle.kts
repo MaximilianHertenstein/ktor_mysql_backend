@@ -52,7 +52,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-    //implementation("mysql:mysql-connector-java:$mysqlVersion")
+    implementation("mysql:mysql-connector-java:$mysqlVersion")
     implementation("org.jdbi:jdbi3-core:$jdbi_version")
     //implementation("com.h2database:h2:1.4.200")
     implementation("org.jdbi:jdbi3-kotlin:$jdbi_version")

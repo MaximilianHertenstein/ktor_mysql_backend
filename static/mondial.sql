@@ -1,7 +1,7 @@
 -- DROP DATABASE IF EXISTS Mondial;
 
-CREATE SCHEMA IF NOT EXISTS `Mondial`;
-USE `Mondial`;
+-- CREATE SCHEMA IF NOT EXISTS `Mondial`;
+-- USE `Mondial`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: Mondial

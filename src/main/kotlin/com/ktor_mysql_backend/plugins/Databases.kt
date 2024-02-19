@@ -1,8 +1,6 @@
 package com.ktor_mysql_backend.plugins
 
-//import org.jetbrains.exposed.sql.Database
-//import org.jetbrains.exposed.sql.transactions.TransactionManager
-//import org.jetbrains.exposed.sql.transactions.transaction
+
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -15,61 +13,83 @@ import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import java.io.File
 
 
-fun prepareJDBI(): Jdbi {
-    val jdbi = Jdbi.create("jdbc:h2:mem:test;MODE=MYSQL;DB_CLOSE_DELAY=-1;", "username", "password")
+fun prepareJDBI(slqScriptName: String): Jdbi {
+    val jdbi = Jdbi.create("jdbc:h2:mem:$slqScriptName;MODE=MYSQL;DB_CLOSE_DELAY=-1;", "username", "password")
+    //val jdbi = Jdbi.create("jdbc:mysql://localhost:3306/$slqScriptName", "root", "rootpassword")
     jdbi.installPlugin(KotlinPlugin())
     jdbi.installPlugin(KotlinSqlObjectPlugin())
-    return jdbi
-}
-fun prepareDB(jdbi: Jdbi,filepath:String) {
     val h: Handle = jdbi.open()
-    val fileContent = File(filepath).readText()
-
-    //val fileContent = File("Fahrrad2022.sql").readText()
+    var file = File("static/$slqScriptName.sql")
+    val fileContent = file.readText()
+    println("\n\nexecute$slqScriptName\n\n")
     val script = Script(h, fileContent)
     script.execute()
-    script.close()
     h.close()
-    //h.setReadOnly(true)
-    //return h
+    script.close()
+    return jdbi
 }
+
 fun  runQueries(jdbi: Jdbi,queryString: String): Pair<List<String>, List<List<String>>> {
-    //val q = h.createQuery("select 1 + 1, 2 * 2, 5 * 5;");
     val h: Handle = jdbi.open()
     h.setReadOnly(true)
     val script = Script(h, queryString)
     val statements = script.statements
     val results = statements.map { stmt -> h.createQuery(stmt).mapToMap().list()}
     val lastRes = results.last()
-    //val q = h.createQuery(queryString);
-    //val l = q.mapToMap().list()
     val colNames = lastRes[0].keys.toList()
-    val td = lastRes.map { m -> m.values.map{ v -> v.toString() } }
-    //h.close()
+    val td = lastRes.map { m -> m.values.map{ v -> v?.toString() ?: "null" }}
     return Pair (colNames, td)
 }
 
-fun Application.hostDB(slqScriptName:String){
-    val jdbi = prepareJDBI()
-    prepareDB(jdbi, "static/" + "$slqScriptName.sql")
-    routing {get("/runQueriesTo$slqScriptName"){
+val dbMap = createDBMap(arrayOf("fahrradverleih","mondial"))
+
+val z = dbMap["mondial"]
+val x = z.let {
+    if (it != null) {
+        runQueries(it,"select * from country;")
+    }
+}
+val y = println(x)
+
+
+
+fun Application.hostDB(){
+
+
+    //val jdbi = prepareJDBI(slqScriptName)
+    //val dbMap = createDBMap(arrayOf("fahrradverleih","mondial"))
+    routing {get("/runQueriesTo"){
+        val dbName = call.request.queryParameters["d"] ?: ""
         val queryString = call.request.queryParameters["q"] ?: ""
-        try {
-            val queryRes =  runQueries(jdbi,queryString)
-            call.respond(queryRes)
+        val db = dbMap[dbName]
+        if (db == null)
+            call.respond("database not found")
+        else {
+            try {
+                val queryRes =  runQueries(db,queryString)
+                call.respond(queryRes)
+            }
+            catch (error: JdbiException){
+                val x = if (error.cause !=null)  {
+                    error.cause!!.message} else {error.message}
+                call.respond(x ?: "Error")
+            }
+
         }
-        catch (error: JdbiException){
-            val x = if (error.cause !=null)  {
-                error.cause!!.message} else {error.message}
-            call.respond(x ?: "Error")
-        }
+
+
 
 
     }
-}}
+}
+}
+
+fun createDBMap (dbNames: Array<String>): Map<String, Jdbi> {
+    return dbNames.associateWith { dbName -> prepareJDBI(dbName) }
+
+}
+
 
 fun Application.configureDatabases() {
-    hostDB("fahrradverleih")
-    hostDB("mondial")
-
+    hostDB()
 }
