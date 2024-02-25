@@ -35,18 +35,19 @@ fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List<List<St
     return (jdbi.withHandle<Pair<List<String>, List<List<String>>>, JdbiException> { h ->
         run {
             h.setReadOnly(true)
-            val script = Script(h, queryString)
+            val script = Script(h, queryString.replace("\"" ,"\'"))
             val statements = script.statements
             val results = statements.map { stmt -> h.createQuery(stmt).mapToMap().list() }
-            if (statements.isEmpty()) {
+            if (results.isEmpty()) {
                 return@withHandle Pair(
                     emptyList(), emptyList()
                 )
             }
+            else {
             val lastRes = results.last()
             val colNames = lastRes[0].keys.toList()
             val td = lastRes.map { m -> m.values.map { v -> v?.toString() ?: "null" } }
-            return@withHandle Pair(colNames, td)
+            return@withHandle Pair(colNames, td)}
         }
     })
 }
