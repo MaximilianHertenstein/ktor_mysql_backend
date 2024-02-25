@@ -45,7 +45,7 @@ fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List<List<St
             }
             else {
             val lastRes = results.last()
-            val colNames = lastRes[0].keys.toList()
+            val colNames = if (lastRes.isEmpty()) emptyList()  else  lastRes.first().keys.toList()
             val td = lastRes.map { m -> m.values.map { v -> v?.toString() ?: "null" } }
             return@withHandle Pair(colNames, td)}
         }
@@ -54,13 +54,13 @@ fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List<List<St
 
 val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial"))
 
-//val z = dbMap["fahrradverleih"]
-//val x = z.let {
-//    if (it != null) {
-//        runQueries(it, "select * from kunden; ")
-//    }
-//}
-//val y = println(x)
+val z = dbMap["fahrradverleih"]
+val x = z.let {
+    if (it != null) {
+        runQueries(it, "select * from kunden where name = \"s\"; ")
+    }
+}
+val y = println(x)
 
 fun createDBMap(dbNames: Array<String>): Map<String, Jdbi> {
     return dbNames.associateWith { dbName -> prepareJDBI(dbName) }
