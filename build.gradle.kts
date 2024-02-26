@@ -13,7 +13,6 @@ val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 val mysqlVersion:String by project
-val exposed_version: String by project
 val h2_version: String by project
 val jdbi_version: String by project
 
@@ -58,6 +57,8 @@ dependencies {
     implementation("org.jdbi:jdbi3-kotlin:$jdbi_version")
     implementation("org.jdbi:jdbi3-kotlin-sqlobject:$jdbi_version")
     implementation("io.ktor:ktor-server-cors:$ktor_version")
+    implementation("io.ktor:ktor-server-html-builder:$ktor_version")
+    //implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
     // implementation(kotlin("script-runtime"))
 
     //implementation("io.insert-koin:koin-ktor:$koinKtor")

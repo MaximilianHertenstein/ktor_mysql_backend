@@ -37,20 +37,27 @@ fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List<List<St
             h.setReadOnly(true)
             val script = Script(h, queryString.replace("\"" ,"\'"))
             val statements = script.statements
+            if (statements.isEmpty()){ return@withHandle Pair(
+                emptyList(), emptyList()
+            )}
+
             val results = statements.map { stmt -> h.createQuery(stmt).mapToMap().list() }
-            if (results.isEmpty()) {
-                return@withHandle Pair(
-                    emptyList(), emptyList()
-                )
-            }
-            else {
+//            if (results.isEmpty()) {
+//                return@withHandle Pair(
+//                    emptyList(), emptyList()
+//                )
+//            }
+//            else {
+
             val lastRes = results.last()
             val colNames = if (lastRes.isEmpty()) emptyList()  else  lastRes.first().keys.toList()
             val td = lastRes.map { m -> m.values.map { v -> v?.toString() ?: "null" } }
             return@withHandle Pair(colNames, td)}
-        }
+        //}
     })
 }
+
+
 
 val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial"))
 

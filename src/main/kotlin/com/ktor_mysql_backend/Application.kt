@@ -1,9 +1,6 @@
 package com.ktor_mysql_backend
 
-import com.ktor_mysql_backend.plugins.configureDatabases
-import com.ktor_mysql_backend.plugins.configureMonitoring
-import com.ktor_mysql_backend.plugins.configureRouting
-import com.ktor_mysql_backend.plugins.configureSerialization
+import com.ktor_mysql_backend.plugins.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.cors.routing.*
@@ -20,4 +17,5 @@ fun Application.module() {
     configureDatabases()
     configureMonitoring()
     configureRouting()
+    respondHTML ()
 }
