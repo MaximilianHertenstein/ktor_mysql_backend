@@ -8,10 +8,9 @@ import io.ktor.server.routing.*
 import kotlinx.html.*
 
 
-fun h(columnNames: List<String>, tableData: List<List<String>>): HTML.() -> Unit {
+fun tableDataToHTMLTable(columnNames: List<String>, tableData: List<List<String>>): HTML.() -> Unit {
     return {
         body {
-
             table {
                 makeRowHelper(columnNames) { re: String -> th { +re } }
                 for (row in tableData) {
@@ -53,10 +52,10 @@ fun Application.respondHTML() {
             val dbName = call.request.queryParameters["d"] ?: ""
             val queryString = call.request.queryParameters["q"] ?: ""
             try {
-                val x = runQueryOnDB(dbName, queryString)
-                call.respondHtml(HttpStatusCode.OK, h(x.first, x.second))
+                val tableData = runQueryOnDB(dbName, queryString)
+                call.respondHtml(HttpStatusCode.OK, tableDataToHTMLTable(tableData.first, tableData.second))
             } catch (e: Exception) {
-                call.respondHtml(HttpStatusCode.NotAcceptable, stringToHTML(causeToString(e)))
+                call.respondHtml(HttpStatusCode.OK, stringToHTML(causeToString(e)))
             }
         }
     }
