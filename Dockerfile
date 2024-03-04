@@ -35,4 +35,4 @@ COPY cmd.sh /app/cmd.sh
 
 
 # ENTRYPOINT ["java","-jar","/app/ktor-mysql-backend.jar"]
-CMD cmd.sh
+CMD app/cmd.sh
