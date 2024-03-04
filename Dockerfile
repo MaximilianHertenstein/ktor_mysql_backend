@@ -35,12 +35,12 @@ EXPOSE 8080:8080
 COPY  /static/*.sql /static/
 # COPY  ./mysql-connector-j-8.3.0.jar /app/mysql-connector-j-8.3.0.jar
 ENV CLASSPATH=/app/mysql-connector-j-8.3.0.jar:${CLASSPATH}
-COPY cmd.sh /app/cmd.sh
+#  COPY cmd.sh /app/cmd.sh
 
-#COPY --from=build /home/gradle/src/build/libs/*jar /app/ktor-mysql-backend.jar
-COPY --from=build /home/gradle/src/build/libs/*jar /app/
-RUN ls /app
-RUN chmod +x /app/cmd.sh
+COPY --from=build /home/gradle/src/build/libs/*jar /app/ktor-mysql-backend.jar
+# COPY --from=build /home/gradle/src/build/libs/*jar /app/
+# RUN ls /app
+# RUN chmod +x /app/cmd.sh
 
 # RUN systemctl start mysql
 RUN mysqld &
