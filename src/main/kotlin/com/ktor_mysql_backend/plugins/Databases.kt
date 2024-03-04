@@ -19,7 +19,7 @@ private fun prepareJDBI(slqScriptName: String): Jdbi {
 //    )
     Class.forName("com.mysql.cj.jdbc.Driver");
     val jdbi = Jdbi.create(
-        "jdbc:mysql://host.docker.internal:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "root", ""
+        "jdbc:mysql://172.17.0.1:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "root", ""
     )
     jdbi.installPlugin(KotlinPlugin())
     jdbi.installPlugin(KotlinSqlObjectPlugin())
