@@ -52,6 +52,8 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     implementation("mysql:mysql-connector-java:$mysqlVersion")
+    implementation("com.mysql:mysql-connector-j:8.3.0")
+
     implementation("org.jdbi:jdbi3-core:$jdbi_version")
     //implementation("com.h2database:h2:1.4.200")
     implementation("org.jdbi:jdbi3-kotlin:$jdbi_version")
