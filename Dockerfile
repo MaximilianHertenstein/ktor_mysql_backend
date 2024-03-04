@@ -33,7 +33,7 @@ COPY --from=build /home/gradle/src/build/libs/*jar /app/ktor-mysql-backend.jar
 COPY  /static/*.sql /static/
 COPY cmd.sh /app/cmd.sh
 
-RUN chmod +x /app/samplescript.sh
+RUN chmod +x /app/cmd.sh
 
 
 # ENTRYPOINT ["java","-jar","/app/ktor-mysql-backend.jar"]
