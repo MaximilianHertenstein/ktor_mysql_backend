@@ -8,7 +8,7 @@ import io.ktor.server.routing.*
 import kotlinx.html.*
 
 
-fun tableDataToHTMLTable(columnNames: List<String>, tableData: List<List<String>>): HTML.() -> Unit {
+private fun tableDataToHTMLTable(columnNames: List<String>, tableData: List<List<String>>): HTML.() -> Unit {
     return {
         body {
             table {
@@ -29,7 +29,7 @@ private fun TABLE.makeRowHelper(row: List<String>, helper: TR.(String) -> Unit) 
     }
 }
 
-fun stringToHTML(message: String): HTML.() -> Unit {
+private fun stringToHTML(message: String): HTML.() -> Unit {
     return {
         body {
             p { +message }

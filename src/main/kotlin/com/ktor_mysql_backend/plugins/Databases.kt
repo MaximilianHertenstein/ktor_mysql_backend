@@ -12,7 +12,7 @@ import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import java.io.File
 
 
-fun prepareJDBI(slqScriptName: String): Jdbi {
+private fun prepareJDBI(slqScriptName: String): Jdbi {
     val jdbi = Jdbi.create("jdbc:h2:mem:$slqScriptName;MODE=MYSQL;DB_CLOSE_DELAY=-1;", "username", "")
 //    val jdbi = Jdbi.create(
 //        "jdbc:mysql://localhost:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "max", "blabla"
@@ -31,7 +31,7 @@ fun prepareJDBI(slqScriptName: String): Jdbi {
     return jdbi
 }
 
-fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List<List<String>>> {
+private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List<List<String>>> {
     return (jdbi.withHandle<Pair<List<String>, List<List<String>>>, JdbiException> { h ->
         run {
             h.setReadOnly(true)
@@ -59,17 +59,17 @@ fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List<List<St
 
 
 
-val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial"))
+private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial"))
 
-val z = dbMap["fahrradverleih"]
-val x = z.let {
-    if (it != null) {
-        runQueries(it, "select * from kunden where name = \"s\"; ")
-    }
-}
-val y = println(x)
+//val z = dbMap["fahrradverleih"]
+//val x = z.let {
+//    if (it != null) {
+//        runQueries(it, "select * from kunden where name = \"s\"; ")
+//    }
+//}
+//val y = println(x)
 
-fun createDBMap(dbNames: Array<String>): Map<String, Jdbi> {
+private fun createDBMap(dbNames: Array<String>): Map<String, Jdbi> {
     return dbNames.associateWith { dbName -> prepareJDBI(dbName) }
 }
 
@@ -87,8 +87,7 @@ fun causeToString(e: Exception): String {
     return (eCause ?: "Bad Error")
 }
 
-fun Application.hostDB() {
-
+private fun Application.hostDB() {
     routing {
         get("/runQueriesTo") {
             val dbName = call.request.queryParameters["d"] ?: ""
