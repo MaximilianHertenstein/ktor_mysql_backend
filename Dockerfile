@@ -4,11 +4,23 @@ WORKDIR /home/gradle/src
 RUN gradle buildFatJar --no-daemon
 
 
-FROM openjdk:17
-#FROM   openjdk:17-jdk-alpine3.14
+# FROM openjdk:17
+#FROM   openjdk:17-jdk-alpine
+FROM sapmachine:latest
+
+
+RUN apt update
+RUN apt full-upgrade -y
+
+RUN apt install -y  apt-utils
+RUN apt full-upgrade -y
+RUN apt install  -y dialog mysql-server mysql-client libmariadb-java
+# RUN  systemctl start mysql-server
+
 # libmysql-java
 # FROM ubuntu:23.10
 # RUN apt -y update
+# RUN apt install -y  mysql-server
 # RUN apt install -y dialog apt-utils
 # RUN apt full-upgrade -y
 
@@ -19,5 +31,8 @@ EXPOSE 8080:8080
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*jar /app/ktor-mysql-backend.jar
 COPY  /static/*.sql /static/
+COPY cmd.sh /app/cmd.sh
 
-ENTRYPOINT ["java","-jar","/app/ktor-mysql-backend.jar"]
+
+# ENTRYPOINT ["java","-jar","/app/ktor-mysql-backend.jar"]
+CMD cmd.sh
