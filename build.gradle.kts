@@ -51,8 +51,11 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-    implementation("mysql:mysql-connector-java:$mysqlVersion")
+//    implementation("mysql:mysql-connector-java:$mysqlVersion")
+    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
     implementation("com.mysql:mysql-connector-j:8.3.0")
+
+//    implementation("com.mysql:mysql-connector-j:8.3.0")
 
     implementation("org.jdbi:jdbi3-core:$jdbi_version")
     //implementation("com.h2database:h2:1.4.200")
