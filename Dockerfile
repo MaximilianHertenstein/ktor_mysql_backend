@@ -14,7 +14,7 @@ RUN apt full-upgrade -y
 
 RUN apt install -y  apt-utils
 RUN apt full-upgrade -y
-RUN apt install  -y dialog mysql-server mysql-client libmariadb-java wget
+RUN apt install  -y dialog mysql-server mysql-client libmariadb-java wget systemd
 # RUN  systemctl start mysql-server
 
 # libmysql-java
