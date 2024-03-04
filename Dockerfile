@@ -35,6 +35,7 @@ RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*jar /app/ktor-mysql-backend.jar
 COPY  /static/*.sql /static/
 COPY  mysql-connector-j-8.3.0.jar /app/mysql-connector-j-8.3.0.jar
+ENV CLASSPATH=/app/mysql-connector-j-8.3.0.jar:${CLASSPATH}
 COPY cmd.sh /app/cmd.sh
 
 RUN chmod +x /app/cmd.sh
