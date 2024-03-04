@@ -1,4 +1,4 @@
 #!/bin/bash
 
 mysqld &
-java -jar /app/ktor-mysql-backend.jar
+java -cp /app/mysql-connector-j-8.3.0.jar -jar /app/ktor-mysql-backend.jar
