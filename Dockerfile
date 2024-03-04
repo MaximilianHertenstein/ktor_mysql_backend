@@ -9,7 +9,7 @@ RUN gradle buildFatJar --no-daemon
 # libmysql-java
 FROM ubuntu:23.10
 RUN apt -y update
-RUN apt install -y openjdk-22-jre mysql-server 
+RUN apt install -y openjdk-22-jre mysql-server  mysql-client
 EXPOSE 8080:8080
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*jar /app/ktor-mysql-backend.jar
