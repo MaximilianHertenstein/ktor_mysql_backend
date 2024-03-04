@@ -12,7 +12,7 @@ RUN apt -y update
 RUN apt install -y dialog apt-utils
 RUN apt full-upgrade -y
 
-RUN apt install -y  openjdk-21-jre mysql-server  mysql-client wget dpkg
+RUN apt install -y  openjdk-21-jre mysql-server  mysql-client wget dpkg libmariadb-java
 RUN wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j_8.3.0-1ubuntu23.10_all.deb
 RUN  dpkg -i ./mysql-connector-j_8.3.0-1ubuntu23.10_all.deb
 EXPOSE 8080:8080
