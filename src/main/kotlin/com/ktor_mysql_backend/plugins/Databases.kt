@@ -13,10 +13,13 @@ import java.io.File
 
 
 private fun prepareJDBI(slqScriptName: String): Jdbi {
-    val jdbi = Jdbi.create("jdbc:h2:mem:$slqScriptName;MODE=MYSQL;DB_CLOSE_DELAY=-1;", "username", "")
+//    val jdbi = Jdbi.create("jdbc:h2:mem:$slqScriptName;MODE=MYSQL;DB_CLOSE_DELAY=-1;", "username", "")
 //    val jdbi = Jdbi.create(
 //        "jdbc:mysql://localhost:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "max", "blabla"
 //    )
+        val jdbi = Jdbi.create(
+        "jdbc:mysql://localhost:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "root", ""
+    )
     jdbi.installPlugin(KotlinPlugin())
     jdbi.installPlugin(KotlinSqlObjectPlugin())
     val file = File("static/$slqScriptName.sql")
