@@ -17,7 +17,7 @@ private fun prepareJDBI(slqScriptName: String): Jdbi {
 //    val jdbi = Jdbi.create(
 //        "jdbc:mysql://localhost:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "max", "blabla"
 //    )
-    Class.forName("com.mysql.jdbc.Driver");
+    Class.forName("com.mysql.cj.jdbc.Driver");
     val jdbi = Jdbi.create(
         "jdbc:mysql://host.docker.internal:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "root", ""
     )
