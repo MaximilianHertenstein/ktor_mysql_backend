@@ -1,1 +1,1 @@
-CREATE USER 'local_user'@'max' IDENTIFIED BY 'blabla';
+CREATE USER 'max'@'172.17.0.1' IDENTIFIED BY 'blabla';
