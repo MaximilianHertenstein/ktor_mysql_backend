@@ -36,7 +36,7 @@ COPY  /static/*.sql /static/
 # COPY  ./mysql-connector-j-8.3.0.jar /app/mysql-connector-j-8.3.0.jar
 ENV CLASSPATH=/app/mysql-connector-j-8.3.0.jar:${CLASSPATH}
 #  COPY cmd.sh /app/cmd.sh
-# RUN mysqld &
+RUN mysqld &
 COPY ./create_user.sql / /app/
 RUN chmod +x /app/create_user.sql
 CMD ["mysql","-u", "root" ,"-h" ,"172.17.0.1", "-p", "3306" ,"--protocol=tcp",   "/app/create_user.sql"]
