@@ -1,4 +1,5 @@
 #!/bin/bash
 
 mysqld &
-java -cp /app/mysql-connector-j-8.3.0.jar -jar /app/ktor-mysql-backend.jar
+mysql -u  root  -h  172.17.0.1 -p 3306 --protocol=tcp /app/create_user.sql
+java  -jar /app/ktor-mysql-backend.jar
