@@ -48,5 +48,5 @@ RUN ls /app
 
 # RUN systemctl start mysql
 
-# ENTRYPOINT ["java","-jar","/app/ktor-mysql-backend.jar"]
-CMD app/cmd.sh
+ENTRYPOINT ["java","-jar","/app/ktor-mysql-backend.jar"]
+# CMD app/cmd.sh
