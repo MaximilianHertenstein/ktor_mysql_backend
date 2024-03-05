@@ -4,17 +4,17 @@ WORKDIR /home/gradle/src
 RUN gradle buildFatJar --no-daemon
 
 
-FROM openjdk:17
-#FROM   openjdk:17-jdk-alpine
-# FROM sapmachine:latest
+# FROM openjdk:17
+# FROM   openjdk:17-jdk-alpine
+FROM sapmachine:latest
 
 
-# RUN apt update
-# RUN apt full-upgrade -y
+RUN apt update
+RUN apt full-upgrade -y
 
-# RUN apt install -y  apt-utils
-# RUN apt full-upgrade -y
-# RUN apt install  -y dialog mysql-server mysql-client libmariadb-java wget systemd
+RUN apt install -y  apt-utils
+RUN apt full-upgrade -y
+RUN apt install  -y dialog mysql-server mysql-client libmariadb-java wget systemd
 # RUN  systemctl start mysql-server
 
 # libmysql-java
@@ -29,12 +29,12 @@ FROM openjdk:17
 # RUN  dpkg -i ./mysql-connector-j_8.3.0-1ubuntu23.10_all.deb
 RUN mkdir /app
 
-# RUN wget -O  /app/mysql-connector-j-8.3.0.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.3.0/mysql-connector-j-8.3.0.jar
+RUN wget -O  /app/mysql-connector-j-8.3.0.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.3.0/mysql-connector-j-8.3.0.jar
 
 EXPOSE 8080:8080
 COPY  /static/*.sql /static/
-# COPY  ./mysql-connector-j-8.3.0.jar /app/mysql-connector-j-8.3.0.jar
-# ENV CLASSPATH=/app/mysql-connector-j-8.3.0.jar:${CLASSPATH}
+COPY  ./mysql-connector-j-8.3.0.jar /app/mysql-connector-j-8.3.0.jar
+ENV CLASSPATH=/app/mysql-connector-j-8.3.0.jar:${CLASSPATH}
 #  COPY cmd.sh /app/cmd.sh
 # RUN mysqld &
 # COPY ./create_user.sql / /app/

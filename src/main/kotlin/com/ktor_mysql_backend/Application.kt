@@ -19,3 +19,16 @@ fun Application.module() {
     configureRouting()
     respondHTML ()
 }
+
+//fun Application.module2() {
+//    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
+//
+//    install(CORS){//allowHeader(HttpHeaders.ContentType)
+//        allowHeader(HttpHeaders.AccessControlAllowOrigin)
+//        anyHost()}
+//    configureSerialization()
+//    configureDatabases()
+//    configureMonitoring()
+//    configureRouting()
+//    respondHTML ()}
+//}
