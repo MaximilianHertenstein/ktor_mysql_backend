@@ -23,9 +23,9 @@ import io.ktor.server.plugins.cors.routing.*
 //     respondHTML ()
 // }
 
-//fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
-fun main(args: Array<String>) {
+fun Application.module() {
 
    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
        install(CORS){//allowHeader(HttpHeaders.ContentType)
