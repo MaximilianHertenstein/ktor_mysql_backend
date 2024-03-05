@@ -39,7 +39,7 @@ ENV CLASSPATH=/app/mysql-connector-j-8.3.0.jar:${CLASSPATH}
 # RUN mysqld &
 COPY ./create_user.sql / /app/
 RUN chmod +x /app/create_user.sql
-# CMD ["mysql","-u", "root" ,"-h" ,"172.17.0.1", "-p", "3306" ,"--protocol=tcp",   "/app/create_user.sql"]
+CMD ["mysql","-u", "root" ,"-h" ,"172.17.0.1", "-p", "3306" ,"--protocol=tcp",   "/app/create_user.sql"]
 
 COPY --from=build /home/gradle/src/build/libs/*jar /app/ktor-mysql-backend.jar
 # COPY --from=build /home/gradle/src/build/libs/*jar /app/
