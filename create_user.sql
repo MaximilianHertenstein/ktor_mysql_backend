@@ -1,0 +1,1 @@
+CREATE USER 'local_user'@'max' IDENTIFIED BY 'blabla';
