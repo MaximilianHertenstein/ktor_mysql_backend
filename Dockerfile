@@ -33,12 +33,12 @@ RUN wget -O  /app/mysql-connector-j-8.3.0.jar https://repo1.maven.org/maven2/com
 
 EXPOSE 8080:8080
 COPY  /static/*.sql /static/
-COPY  ./mysql-connector-j-8.3.0.jar /app/mysql-connector-j-8.3.0.jar
+# COPY  ./mysql-connector-j-8.3.0.jar /app/mysql-connector-j-8.3.0.jar
 ENV CLASSPATH=/app/mysql-connector-j-8.3.0.jar:${CLASSPATH}
 #  COPY cmd.sh /app/cmd.sh
 # RUN mysqld &
-# COPY ./create_user.sql / /app/
-# RUN chmod +x /app/create_user.sql
+COPY ./create_user.sql / /app/
+RUN chmod +x /app/create_user.sql
 # CMD ["mysql","-u", "root" ,"-h" ,"172.17.0.1", "-p", "3306" ,"--protocol=tcp",   "/app/create_user.sql"]
 
 COPY --from=build /home/gradle/src/build/libs/*jar /app/ktor-mysql-backend.jar
