@@ -8,7 +8,7 @@ val jdbi_version: String by project
 
 plugins {
     kotlin("jvm") version "1.9.22"
-    id("io.ktor.plugin") version "2.3.8"
+    id("io.ktor.plugin") version "2.3.9"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
@@ -41,7 +41,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-//    implementation("mysql:mysql-connector-java:$mysqlVersion")
+    implementation("mysql:mysql-connector-java:$mysqlVersion")
     // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
     implementation("com.mysql:mysql-connector-j:8.3.0")
 

@@ -21,6 +21,9 @@ private fun prepareJDBI(slqScriptName: String): Jdbi {
 //    val jdbi = Jdbi.create(
 //        "jdbc:mysql://172.17.0.1:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "max", "blabla"
 //    )
+//        val jdbi = Jdbi.create(
+//        "jdbc:mysql://db:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "max", "blabla"
+//    )
     jdbi.installPlugin(KotlinPlugin())
     jdbi.installPlugin(KotlinSqlObjectPlugin())
     val file = File("static/$slqScriptName.sql")
