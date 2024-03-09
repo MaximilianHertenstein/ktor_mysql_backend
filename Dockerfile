@@ -6,7 +6,7 @@ RUN gradle buildFatJar --no-daemon
 
 FROM openjdk:17
 # FROM   openjdk:17-jdk-alpine
-# FROM sapmachine:latest
+#  FROM sapmachine:latest
 
 
 # RUN apt update
@@ -23,7 +23,7 @@ FROM openjdk:17
 # RUN apt install -y  mysql-server
 # RUN apt install -y dialog apt-utils
 # RUN apt full-upgrade -y
-
+# RUN apt install -y wget
 # RUN apt install -y  openjdk-21-jre mysql-server  mysql-client wget dpkg libmariadb-java
 #RUN wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j_8.3.0-1ubuntu23.10_all.deb
 # RUN  dpkg -i ./mysql-connector-j_8.3.0-1ubuntu23.10_all.deb

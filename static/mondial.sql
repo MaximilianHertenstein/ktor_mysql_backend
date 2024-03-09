@@ -5,9 +5,9 @@
 -- ------------------------------------------------------
 -- Server version	8.0.36-0ubuntu0.23.10.1
 
--- DROP SCHEMA IF EXISTS Mondial;
--- CREATE SCHEMA IF NOT EXISTS `Mondial`;
--- USE `Mondial`;
+DROP SCHEMA IF EXISTS Mondial;
+CREATE SCHEMA IF NOT EXISTS `Mondial`;
+USE `Mondial`;
 
 
 
