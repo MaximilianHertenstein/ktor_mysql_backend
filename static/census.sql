@@ -1,5 +1,10 @@
-CREATE SCHEMA  IF NOT EXISTS `census` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `census`;
+-- CREATE SCHEMA  IF NOT EXISTS `census` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+-- USE `census`;
+
+
+--DROP SCHEMA IF EXISTS census;
+--CREATE SCHEMA IF NOT EXISTS census;
+--USE census;
 -- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: census
@@ -26,15 +31,15 @@ DROP TABLE IF EXISTS `census`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `census` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `district` text COLLATE utf8mb4_general_ci NOT NULL,
-  `locality` text COLLATE utf8mb4_general_ci NOT NULL,
+  `district` text ,--COLLATE utf8mb4_general_ci NOT NULL,
+  `locality` text ,--COLLATE utf8mb4_general_ci NOT NULL,
   `families` int NOT NULL,
   `households` int NOT NULL,
   `population` int NOT NULL,
   `male` int NOT NULL,
   `female` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=754 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+)  ; -- ENGINE=InnoDB AUTO_INCREMENT=754 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

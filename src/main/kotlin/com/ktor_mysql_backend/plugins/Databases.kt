@@ -68,13 +68,13 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
 
 private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census"))
 
-//val z = dbMap["fahrradverleih"]
-//val x = z.let {
-//    if (it != null) {
-//        runQueries(it, "select * from kunden where name = \"s\"; ")
-//    }
-//}
-//val y = println(x)
+val z = dbMap["census"]
+val x = z.let {
+    if (it != null) {
+        runQueries(it, "select * from census;")
+    }
+}
+val y = println(x)
 
 private fun createDBMap(dbNames: Array<String>): Map<String, Jdbi> {
     return dbNames.associateWith { dbName -> prepareJDBI(dbName) }

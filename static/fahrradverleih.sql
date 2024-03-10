@@ -5,9 +5,9 @@
 -- Server version	8.0.36-0ubuntu0.23.10.1
 
 
-DROP SCHEMA IF EXISTS fahrradverleih;
-CREATE SCHEMA IF NOT EXISTS `fahrradverleih`;
-USE `fahrradverleih`;
+-- DROP SCHEMA IF EXISTS fahrradverleih;
+-- CREATE SCHEMA IF NOT EXISTS `fahrradverleih`;
+-- USE `fahrradverleih`;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
