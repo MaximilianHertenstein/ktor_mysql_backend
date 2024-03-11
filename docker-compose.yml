@@ -29,19 +29,19 @@ services:
     #   test: [ "CMD-SHELL", "pg_isready -U postgres" ]
     #   interval: 1s
 
-  https-portal:
-    image: steveltn/https-portal:1
-    ports:
-      - '80:80'
-      - '443:443'
-    restart: always
+  # https-portal:
+  #   image: steveltn/https-portal:1
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   restart: always
 
-    environment:
-        DOMAINS: 'localhost -> http://web:8080'
-        STAGE: "local"
-        FORCE_RENEW: "false"
-    depends_on:
-      - web
+  #   environment:
+  #       DOMAINS: 'localhost -> http://web:8080'
+  #       STAGE: "local"
+  #       FORCE_RENEW: "false"
+  #   depends_on:
+  #     - web
         # STAGE: 'production' # Don't use production until staging works
         # FORCE_RENEW: 'true'
 
