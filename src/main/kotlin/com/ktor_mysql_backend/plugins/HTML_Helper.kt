@@ -49,8 +49,9 @@ private fun stringToHTML(message: String): HTML.() -> Unit {
 fun Application.respondHTML() {
     routing {
         post("/runQueriesGetHTML") {
-            val dbName = call.request.queryParameters["d"] ?: ""
-            val queryString = call.request.queryParameters["q"] ?: ""
+            val queryParameters = call.request.queryParameters
+            val dbName = queryParameters["d"] ?: throw Exception("No database selected")
+            val queryString = queryParameters["q"] ?: ""
             try {
                 val tableData = runQueryOnDB(dbName, queryString)
                 call.respondHtml(HttpStatusCode.OK, tableDataToHTMLTable(tableData.first, tableData.second))
