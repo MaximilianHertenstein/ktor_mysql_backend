@@ -48,7 +48,7 @@ private fun stringToHTML(message: String): HTML.() -> Unit {
 
 fun Application.respondHTML() {
     routing {
-        get("/runQueriesGetHTML") {
+        post("/runQueriesGetHTML") {
             val dbName = call.request.queryParameters["d"] ?: ""
             val queryString = call.request.queryParameters["q"] ?: ""
             try {
