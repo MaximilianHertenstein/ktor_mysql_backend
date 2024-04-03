@@ -4,6 +4,7 @@ package com.ktor_mysql_backend.plugins
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
+import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import kotlinx.html.*
 
@@ -49,10 +50,15 @@ private fun stringToHTML(message: String): HTML.() -> Unit {
 fun Application.respondHTML() {
     routing {
         post("/runQueriesGetHTML") {
-            val queryParameters = call.request.queryParameters
-            val dbName = queryParameters["d"] ?: throw Exception("No database selected")
+            val queryParameters = call.receiveParameters()
+
+
             val queryString = queryParameters["q"] ?: ""
+            println("the fom parameters are " + queryParameters)
+
+            println("the fom parameters are  q : " + queryString + " d : " + queryParameters["d"])
             try {
+                val dbName = if (queryParameters["d"] != null) {queryParameters["d"].toString()}else {throw Exception("No database selected")}
                 val tableData = runQueryOnDB(dbName, queryString)
                 call.respondHtml(HttpStatusCode.OK, tableDataToHTMLTable(tableData.first, tableData.second))
             } catch (e: Exception) {
