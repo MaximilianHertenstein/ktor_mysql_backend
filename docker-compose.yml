@@ -1,16 +1,31 @@
 version: '3'
 
+networks:
+  max:
+    external: true
+
 services:
   web:
     build: .
-    ports:
-      - "8080:8080"
+    # ports:
+    #  - "8080:8080"
     depends_on:
-       db:
-          condition: service_healthy
+      db:
+        condition: service_healthy
+    expose:
+      - "8080"
+    networks:
+      - max
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`178.254.8.56`)"
+      - "traefik.http.services.web.loadbalancer.server.port=8080"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=https_resolver"
+
   db:
     image: mysql
-      #   volumes:
+    #   volumes:
     #     - ./tmp/db:/var/lib/mysql/data
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
@@ -18,30 +33,31 @@ services:
       #MYSQL_DATABASE: fahrradverleih
       MYSQL_USER: max
       MYSQL_PASSWORD: blabla
-    ports:
-      - "3303:3306"
+    networks:
+      - max
+    expose:
+      - "3306"
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 20s
       retries: 10
     volumes:
       - ./init:/docker-entrypoint-initdb.d
-    #   test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-    #   interval: 1s
+        #   test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+        #   interval: 1s
 
-  # https-portal:
-  #   image: steveltn/https-portal:1
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   restart: always
+        # https-portal:
+        #   image: steveltn/https-portal:1
+        #   ports:
+        #     - '80:80'
+        #     - '443:443'
+        #   restart: always
 
-  #   environment:
-  #       DOMAINS: 'localhost -> http://web:8080'
-  #       STAGE: "local"
-  #       FORCE_RENEW: "false"
-  #   depends_on:
-  #     - web
+        #   environment:
+        #       DOMAINS: 'localhost -> http://web:8080'
+        #       STAGE: "local"
+        #       FORCE_RENEW: "false"
+        #   depends_on:
+        #     - web
         # STAGE: 'production' # Don't use production until staging works
-        # FORCE_RENEW: 'true'
-
+      # FORCE_RENEW: 'true'
