@@ -14,6 +14,7 @@ fun Application.module() {
     install(CORS){//allowHeader(HttpHeaders.ContentType)
         allowHeader(HttpHeaders.AccessControlAllowOrigin)
         allowHeader(HttpHeaders.ContentType)
+        allowHeader("*")
         anyHost()}
     configureSerialization()
     configureDatabases()
