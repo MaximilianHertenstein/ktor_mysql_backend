@@ -15,6 +15,7 @@ fun Application.module() {
         allowHeader(HttpHeaders.AccessControlAllowOrigin)
         allowHeader(HttpHeaders.ContentType)
         allowHeader("*")
+        allowHeaders { true }
         anyHost()}
     configureSerialization()
     configureDatabases()
