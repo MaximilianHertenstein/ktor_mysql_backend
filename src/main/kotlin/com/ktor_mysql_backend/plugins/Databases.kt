@@ -48,7 +48,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
                 emptyList(), emptyList()
             )}
 
-            val results = statements.map { stmt -> h.createQuery(stmt).mapToMap().list() }
+            val results = statements.map { stmt -> val st = h.createQuery(stmt) ; st.addCustomizer(REadON) ;st.mapToMap().list() }
 //            if (results.isEmpty()) {
 //                return@withHandle Pair(
 //                    emptyList(), emptyList()
@@ -67,14 +67,14 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
 
 
 private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census"))
-
-val z = dbMap["census"]
-val x = z.let {
-    if (it != null) {
-        runQueries(it, "select * from census;")
-    }
-}
-val y = println(x)
+//
+//val z = dbMap["census"]
+//val x = z.let {
+//    if (it != null) {
+//        runQueries(it, "select * from census;")
+//    }
+//}
+//val y = println(x)
 
 private fun createDBMap(dbNames: Array<String>): Map<String, Jdbi> {
     return dbNames.associateWith { dbName -> prepareJDBI(dbName) }
