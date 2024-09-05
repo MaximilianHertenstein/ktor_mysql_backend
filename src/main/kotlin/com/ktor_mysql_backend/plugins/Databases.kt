@@ -17,7 +17,7 @@ private fun prepareJDBI(slqScriptName: String): Jdbi {
 //    val jdbi = Jdbi.create(
 //        "jdbc:mysql://localhost:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "max", "blabla"
 //    )
-    Class.forName("com.mysql.cj.jdbc.Driver");
+    Class.forName("com.mysql.cj.jdbc.Driver")
 //    val jdbi = Jdbi.create(
 //        "jdbc:mysql://172.17.0.1:3306/$slqScriptName?createDatabaseIfNotExist=true&autoReconnect=true", "max", "blabla"
 //    )
@@ -48,7 +48,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
                 emptyList(), emptyList()
             )}
 
-            val results = statements.map { stmt -> val st = h.createQuery(stmt) ; st.addCustomizer(REadON) ;st.mapToMap().list() }
+            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.mapToMap().list() }
 //            if (results.isEmpty()) {
 //                return@withHandle Pair(
 //                    emptyList(), emptyList()
@@ -66,7 +66,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
 
 
 
-private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census"))
+private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census", "shark_attack"))
 //
 //val z = dbMap["census"]
 //val x = z.let {
