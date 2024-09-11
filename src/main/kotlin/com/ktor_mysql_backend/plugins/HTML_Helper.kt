@@ -12,6 +12,7 @@ import kotlinx.html.*
 private fun tableDataToHTMLTable(columnNames: List<String>, tableData: List<List<String>>): HTML.() -> Unit {
     return {
         body {
+            stringToHTML("rows: " + tableData.size)
             table {
                 makeRowHelper(columnNames) { re: String -> th { +re } }
                 for (row in tableData) {
