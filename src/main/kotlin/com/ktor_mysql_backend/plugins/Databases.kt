@@ -66,7 +66,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
 
 
 
-private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census", "shark_attack", "dese"))
+private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census", "shark_attack", "dese", "mini_dese"))
 //
 //val z = dbMap["census"]
 //val x = z.let {
