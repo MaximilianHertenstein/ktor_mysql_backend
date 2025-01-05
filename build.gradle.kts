@@ -7,10 +7,10 @@ val h2_version: String by project
 val jdbi_version: String by project
 
 plugins {
-    kotlin("jvm") version "2.0.20"
+    kotlin("jvm") version "2.1.0"
     id("io.ktor.plugin") version "2.3.12"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.20"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "com.ktor_mysql_backend"
