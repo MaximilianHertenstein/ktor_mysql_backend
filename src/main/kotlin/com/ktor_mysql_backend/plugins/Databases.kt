@@ -48,7 +48,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
                 emptyList(), emptyList()
             )}
 
-            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.mapToMap().list() }
+            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.setQueryTimeout(5); st.mapToMap().list() }
 //            if (results.isEmpty()) {
 //                return@withHandle Pair(
 //                    emptyList(), emptyList()
