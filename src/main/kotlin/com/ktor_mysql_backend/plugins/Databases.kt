@@ -7,6 +7,7 @@ import io.ktor.server.routing.*
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.JdbiException
 import org.jdbi.v3.core.kotlin.KotlinPlugin
+import org.jdbi.v3.core.result.ResultIterable
 import org.jdbi.v3.core.statement.Script
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import java.io.File
@@ -49,10 +50,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
             )}
 
             val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.setQueryTimeout(2); val res = st.mapToMap();
-                var count = 0
-                for (r in res){count +=1;if (count> 3000){throw Exception("Result is too big!")}
-                }
-                return@map res
+                return@map mutableMaps(res)
             }
             //if (resultAsMap.size > 3000){throw Exception("Result is too big!")}
             //val results = resultAsMap.map { stmt -> stmt.toList() }
@@ -65,12 +63,21 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
 
             val lastRes = results.last().list()
             val colNames = if (lastRes.isEmpty()) emptyList()  else  lastRes.first().keys.toList()
-            val td = lastRes.map { m -> m.values.map { v -> v?.toString() ?: "null" } }
+            val td = lastRes.map { m -> m.values.map { v -> v.toString() ?: "null" } }
             return@withHandle Pair(colNames, td)}
         //}
     })
 }
 
+private fun mutableMaps(res: ResultIterable<MutableMap<String, Any>>): ResultIterable<MutableMap<String, Any>> {
+    var count = 0
+    for (r in res) {
+        count += 1;if (count > 3000) {
+            throw Exception("Result is too big!")
+        }
+    }
+    return res
+}
 
 
 private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census", "shark_attack", "dese", "mini_dese"))
