@@ -49,7 +49,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
                 emptyList(), emptyList()
             )}
 
-            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.setQueryTimeout(2); val res = st.mapToMap();
+            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.setQueryTimeout(3); val res = st.mapToMap();
                 return@map mutableMaps(res)
             }
             //if (resultAsMap.size > 3000){throw Exception("Result is too big!")}
@@ -63,7 +63,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
 
             val lastRes = results.last().list()
             val colNames = if (lastRes.isEmpty()) emptyList()  else  lastRes.first().keys.toList()
-            val td = lastRes.map { m -> m.values.map { v -> v.toString() ?: "null" } }
+            val td = lastRes.map { m -> m.values.map { v -> if (v == null) "null" else v.toString() } }
             return@withHandle Pair(colNames, td)}
         //}
     })
