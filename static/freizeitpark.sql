@@ -1,22 +1,22 @@
 
 
-DROP SCHEMA IF EXISTS `freizeitpark` ;
-CREATE SCHEMA IF NOT EXISTS `freizeitpark`;
-USE `freizeitpark` ;
+# DROP SCHEMA IF EXISTS `freizeitpark` ;
+# CREATE SCHEMA IF NOT EXISTS `freizeitpark`;
+# USE `freizeitpark` ;
 
 -- -----------------------------------------------------
--- Table `freizeitpark`.`kategorien`
+-- Table `kategorien`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `freizeitpark`.`kategorien` (
+CREATE TABLE IF NOT EXISTS `kategorien` (
   `kategorieNr` INT NOT NULL,
   `bezeichnung` VARCHAR(45) NULL,
   PRIMARY KEY (`kategorieNr`));
 
 
 -- -----------------------------------------------------
--- Table `freizeitpark`.`artikel`
+-- Table `artikel`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `freizeitpark`.`artikel` (
+CREATE TABLE IF NOT EXISTS `artikel` (
   `artikelNr` INT NOT NULL,
   `bezeichnung` VARCHAR(45) NULL,
   `preis` DOUBLE NULL,
@@ -25,15 +25,15 @@ CREATE TABLE IF NOT EXISTS `freizeitpark`.`artikel` (
   INDEX `fk_artikel_kategorien1_idx` (`kategorieNr` ASC),
   CONSTRAINT `fk_artikel_kategorien1`
     FOREIGN KEY (`kategorieNr`)
-    REFERENCES `freizeitpark`.`kategorien` (`kategorieNr`)
+    REFERENCES `kategorien` (`kategorieNr`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `freizeitpark`.`mitarbeiter`
+-- Table `mitarbeiter`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `freizeitpark`.`mitarbeiter` (
+CREATE TABLE IF NOT EXISTS `mitarbeiter` (
   `mitarbeiterNr` INT NOT NULL,
   `vorname` VARCHAR(45) NULL,
   `nachname` VARCHAR(45) NULL,
@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `freizeitpark`.`mitarbeiter` (
 
 
 -- -----------------------------------------------------
--- Table `freizeitpark`.`verkaeufe`
+-- Table `verkaeufe`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `freizeitpark`.`verkaeufe` (
+CREATE TABLE IF NOT EXISTS `verkaeufe` (
   `verkaufNr` INT NOT NULL,
   `datum` DATE NULL,
   `mitarbeiterNr` INT NOT NULL,
@@ -51,15 +51,15 @@ CREATE TABLE IF NOT EXISTS `freizeitpark`.`verkaeufe` (
   INDEX `fk_verkaeufe_mitarbeiter1_idx` (`mitarbeiterNr` ASC),
   CONSTRAINT `fk_verkaeufe_mitarbeiter1`
     FOREIGN KEY (`mitarbeiterNr`)
-    REFERENCES `freizeitpark`.`mitarbeiter` (`mitarbeiterNr`)
+    REFERENCES `mitarbeiter` (`mitarbeiterNr`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `freizeitpark`.`verkaufpositionen`
+-- Table `verkaufpositionen`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `freizeitpark`.`verkaufspositionen` (
+CREATE TABLE IF NOT EXISTS `verkaufspositionen` (
   `positionNr` INT NOT NULL,
   `anzahl` INT NULL,
   `artikelNr` INT NOT NULL,
@@ -69,12 +69,12 @@ CREATE TABLE IF NOT EXISTS `freizeitpark`.`verkaufspositionen` (
   INDEX `fk_verkaufspositionen_verkaeufe1_idx` (`verkaufNr` ASC),
   CONSTRAINT `fk_verkaufspositionen_artikel1`
     FOREIGN KEY (`artikelNr`)
-    REFERENCES `freizeitpark`.`artikel` (`artikelNr`)
+    REFERENCES `artikel` (`artikelNr`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_verkaufspositionen_verkaeufe1`
     FOREIGN KEY (`verkaufNr`)
-    REFERENCES `freizeitpark`.`verkaeufe` (`verkaufNr`)
+    REFERENCES `verkaeufe` (`verkaufNr`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
