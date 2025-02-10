@@ -49,7 +49,7 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
                 emptyList(), emptyList()
             )}
 
-            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.setQueryTimeout(3); val res = st.mapToMap();
+            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.setQueryTimeout(3); val res = st.mapToMap()
                 return@map mutableMaps(res)
             }
             //if (resultAsMap.size > 3000){throw Exception("Result is too big!")}
@@ -80,7 +80,7 @@ private fun mutableMaps(res: ResultIterable<MutableMap<String, Any>>): ResultIte
 }
 
 
-private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census", "shark_attack", "dese", "mini_dese"))
+private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census", "shark_attack", "dese", "mini_dese", "freizeitpark"))
 //
 //val z = dbMap["census"]
 //val x = z.let {
