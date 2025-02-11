@@ -49,7 +49,8 @@ private fun runQueries(jdbi: Jdbi, queryString: String): Pair<List<String>, List
                 emptyList(), emptyList()
             )}
 
-            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.setQueryTimeout(3); val res = st.mapToMap()
+            val results = statements.map { stmt -> val st = h.createQuery(stmt)  ;st.setQueryTimeout(1);st.setMaxRows(3000) ;val res = st.mapToMap()
+
                 return@map mutableMaps(res)
             }
             //if (resultAsMap.size > 3000){throw Exception("Result is too big!")}
