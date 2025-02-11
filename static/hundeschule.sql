@@ -1,7 +1,5 @@
 
-DROP SCHEMA IF EXISTS `hundeschule` ;
-CREATE SCHEMA IF NOT EXISTS `hundeschule;
-USE `hundeschule` ;
+
 
 -- -----------------------------------------------------
 -- Table `besitzer`
