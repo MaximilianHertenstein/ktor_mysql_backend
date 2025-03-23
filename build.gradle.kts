@@ -7,9 +7,9 @@ val h2_version: String by project
 val jdbi_version: String by project
 
 plugins {
-    kotlin("jvm") version "2.1.0"
-    id("io.ktor.plugin") version "3.0.3"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
+    kotlin("jvm") version "2.1.20"
+    id("io.ktor.plugin") version "3.1.1"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.20"
     //id("com.github.johnrengelman.shadow") version "8.1.1"
 
     //id("com.gradleup.shadow") version "8.3.5"
@@ -30,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    runtimeOnly("com.gradleup.shadow:shadow-gradle-plugin:8.3.5")
+    runtimeOnly("com.gradleup.shadow:shadow-gradle-plugin:8.3.6")
     implementation("io.ktor:ktor-server-core-jvm")
     //implementation(kotlin("stdlib-jdk10"))
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
