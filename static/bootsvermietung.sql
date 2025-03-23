@@ -24,36 +24,30 @@ CREATE TABLE `kunden` (
 );
 
 CREATE TABLE `Boote` (
-  `bootsnr`int NOT NULL,
-  `bezeichnung` VARCHAR(50) NULL,
-  `stundenpreis` DOUBLE(4, 2) NULL,
-  `wert` DOUBLE(8, 2) NULL,
-  `typnr` int NULL,
-
+  `bootsnr` int NOT NULL,
+  `bezeichnung` VARCHAR(50) ,
+  `stundenpreis` DOUBLE ,
+  `wert` DOUBLE,
+  `typnr` int,
    PRIMARY KEY (`bootsnr`),
-   INDEX `BootstypenBoote` (`typnr`),
-  CONSTRAINT `BootstypenBoote` FOREIGN KEY `BootstypenBoote` (`typnr`)
-    REFERENCES `bootstypen` (`typnr`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT
-  
+   CONSTRAINT `BootstypenBoote` FOREIGN KEY  (`typnr`)   REFERENCES `bootstypen` (`typnr`)
 );
-
+#
 
 CREATE TABLE `vermietungen` (
   `mietnr` int NOT NULL,
   `mietdatum` DATE NULL,
-  `mietdauer` INT NULL, 	
+  `mietdauer` INT NULL,
   `bootsnr` int NULL,
   `kundennr` int NULL,
   PRIMARY KEY (`mietnr`),
   INDEX `BooteVermietungen` (`bootsnr`),
   INDEX `KundenVermietungen` (`kundennr`),
-  CONSTRAINT `BooteVermietungen` FOREIGN KEY `BooteVermietungen` (`bootsnr`)
+  CONSTRAINT `BooteVermietungen` FOREIGN KEY (`bootsnr`)
     REFERENCES `boote` (`bootsnr`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT,
-  CONSTRAINT `KundenVermietungen` FOREIGN KEY `KundenVermietungen` (`kundennr`)
+  CONSTRAINT `KundenVermietungen` FOREIGN KEY  (`kundennr`)
     REFERENCES `kunden` (`kundennr`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
@@ -70,7 +64,7 @@ VALUES
   (2, 'Yacht'),
   (3, 'Surfbrett'),
   (4, 'Ruderboot');
-  
+
 
 
 INSERT INTO `kunden`(`kundennr`, `nachname`, `vorname`)
@@ -121,20 +115,20 @@ VALUES
   (13, 'Highfly', 10, 2000,'3');
 
 
-  
+
 
 INSERT INTO `vermietungen`(`mietnr`, `mietdatum`, `mietdauer`, `bootsnr`, `kundennr`)
-VALUES 
-  (1, '2021-04-19 00:00:00', 4, 7, 9),
-  (2, '2021-04-24 00:00:00', 1, 4, 22),
-  (3, '2021-05-01 00:00:00', 2, 12, 15),
-  (4, '2021-05-05 00:00:00', 8, 3, 1),
-  (5, '2021-05-05 00:00:00', 7, 4, 20),
-  (6, '2021-05-06 00:00:00', 4, 7, 17),
-  (7, '2021-05-07 00:00:00', 6, 3, 20),
-  (8, '2021-05-14 00:00:00', 2, 7, 16),
-  (9, '2021-05-22 00:00:00', 1, 8, 10),
-  (10, '2021-05-30 00:00:00', 2, 11, 22),
-  (11, '2021-05-30 00:00:00', 2, 12, 1),
-  (12, '2021-05-02 00:00:00', 2, 2, 25),
-  (13, '2021-06-02 00:00:00', 2, 7, 18);
+VALUES
+  (1, '2021-04-19', 4, 7, 9),
+  (2, '2021-04-24', 1, 4, 22),
+  (3, '2021-05-01', 2, 12, 15),
+  (4, '2021-05-05', 8, 3, 1),
+  (5, '2021-05-05', 7, 4, 20),
+  (6, '2021-05-06', 4, 7, 17),
+  (7, '2021-05-07', 6, 3, 20),
+  (8, '2021-05-14', 2, 7, 16),
+  (9, '2021-05-22', 1, 8, 10),
+  (10, '2021-05-30', 2, 11, 22),
+  (11, '2021-05-30', 2, 12, 1),
+  (12, '2021-05-02', 2, 2, 25),
+  (13, '2021-06-02', 2, 7, 18);
