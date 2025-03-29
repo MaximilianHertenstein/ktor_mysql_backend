@@ -3,24 +3,60 @@
 
 CREATE TABLE `hilfsmittel` (
   `hilfmittelNr` int(11) NOT NULL,
-  `bezeichnung` varchar(45) DEFAULT NULL
+  `bezeichnung` varchar(45) DEFAULT NULL,
+    PRIMARY KEY (`hilfmittelNr`)
 ) ;
+
+
+INSERT INTO `hilfsmittel` (`hilfmittelNr`, `bezeichnung`) VALUES
+                                                              (1, 'Rührschüssel'),
+                                                              (2, 'Pfanne'),
+                                                              (3, 'Handrührgerät'),
+                                                              (4, 'Backblech'),
+                                                              (5, 'Backform (rund)'),
+                                                              (6, 'Gemüsereibe'),
+                                                              (7, 'Pürierstab'),
+                                                              (8, 'Suppentopf'),
+                                                              (9, 'Milchtopf'),
+                                                              (10, 'Saftpresse');
 
 --
 -- Daten für Tabelle `hilfsmittel`
 --
 
-INSERT INTO `hilfsmittel` (`hilfmittelNr`, `bezeichnung`) VALUES
-(1, 'Rührschüssel'),
-(2, 'Pfanne'),
-(3, 'Handrührgerät'),
-(4, 'Backblech'),
-(5, 'Backform (rund)'),
-(6, 'Gemüsereibe'),
-(7, 'Pürierstab'),
-(8, 'Suppentopf'),
-(9, 'Milchtopf'),
-(10, 'Saftpresse');
+CREATE TABLE `kategorien` (
+                              `kategorieNr` int(11) NOT NULL,
+                              `kategoriename` varchar(45) DEFAULT NULL,
+                              PRIMARY KEY (`kategorieNr`)
+) ;
+
+
+CREATE TABLE `rezepte` (
+                           `rezeptNr` int(11) NOT NULL,
+                           `bezeichnung` varchar(45) DEFAULT NULL,
+                           `zubereitungsdauer` int(11) DEFAULT NULL,
+                           `kategorieNr` int(11) NOT NULL,
+                           PRIMARY KEY (`rezeptNr`)
+) ;
+
+ALTER TABLE `rezepte`
+
+    ADD KEY `fk_rezepte_kategorien1_idx` (`kategorieNr`);
+
+ALTER TABLE `rezepte`
+    ADD CONSTRAINT `fk_rezepte_kategorien1` FOREIGN KEY (`kategorieNr`) REFERENCES `kategorien` (`kategorieNr`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Daten für Tabelle `kategorien`
+--
+
+INSERT INTO `kategorien` (`kategorieNr`, `kategoriename`) VALUES
+                                                              (1, 'Hauptgerichte  - Fleisch'),
+                                                              (2, 'Hauptgerichte - Vegetarisch'),
+                                                              (3, 'Suppen'),
+                                                              (4, 'Kuchen'),
+                                                              (5, 'Dessert');
+
 
 -- --------------------------------------------------------
 
@@ -31,39 +67,17 @@ INSERT INTO `hilfsmittel` (`hilfmittelNr`, `bezeichnung`) VALUES
 CREATE TABLE `hilfsmittellisten` (
   `hilfsmittellisteNr` int(11) NOT NULL,
   `rezeptNr` int(11) NOT NULL,
-  `hilfmittelNr` int(11) NOT NULL
+  `hilfmittelNr` int(11) NOT NULL,
+  PRIMARY KEY (`hilfsmittellisteNr`)
 ) ;
+
+
 
 --
 -- Daten für Tabelle `hilfsmittellisten`
 --
 
-INSERT INTO `hilfsmittellisten` (`hilfsmittellisteNr`, `rezeptNr`, `hilfmittelNr`) VALUES
-(1, 1, 8),
-(2, 2, 8),
-(3, 2, 7),
-(4, 3, 1),
-(5, 3, 2),
-(6, 4, 1),
-(7, 4, 8),
-(8, 5, 1),
-(9, 5, 3),
-(10, 5, 5),
-(11, 5, 6),
-(12, 6, 1),
-(13, 6, 3),
-(14, 6, 4),
-(15, 6, 9),
-(16, 7, 1),
-(17, 7, 3),
-(18, 7, 2),
-(19, 8, 1),
-(20, 8, 3),
-(21, 9, 1),
-(22, 9, 3),
-(23, 10, 1),
-(24, 10, 3),
-(25, 10, 10);
+
 
 -- --------------------------------------------------------
 
@@ -71,21 +85,7 @@ INSERT INTO `hilfsmittellisten` (`hilfsmittellisteNr`, `rezeptNr`, `hilfmittelNr
 -- Tabellenstruktur für Tabelle `kategorien`
 --
 
-CREATE TABLE `kategorien` (
-  `kategorieNr` int(11) NOT NULL,
-  `kategoriename` varchar(45) DEFAULT NULL
-) ;
 
---
--- Daten für Tabelle `kategorien`
---
-
-INSERT INTO `kategorien` (`kategorieNr`, `kategoriename`) VALUES
-(1, 'Hauptgerichte  - Fleisch'),
-(2, 'Hauptgerichte - Vegetarisch'),
-(3, 'Suppen'),
-(4, 'Kuchen'),
-(5, 'Dessert');
 
 -- --------------------------------------------------------
 
@@ -93,12 +93,7 @@ INSERT INTO `kategorien` (`kategorieNr`, `kategoriename`) VALUES
 -- Tabellenstruktur für Tabelle `rezepte`
 --
 
-CREATE TABLE `rezepte` (
-  `rezeptNr` int(11) NOT NULL,
-  `bezeichnung` varchar(45) DEFAULT NULL,
-  `zubereitungsdauer` int(11) DEFAULT NULL,
-  `kategorieNr` int(11) NOT NULL
-) ;
+
 
 --
 -- Daten für Tabelle `rezepte`
@@ -124,7 +119,8 @@ INSERT INTO `rezepte` (`rezeptNr`, `bezeichnung`, `zubereitungsdauer`, `kategori
 
 CREATE TABLE `zutaten` (
   `zutatenNr` int(11) NOT NULL,
-  `zutatenname` varchar(45) DEFAULT NULL
+  `zutatenname` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`zutatenNr`)
 ) ;
 
 --
@@ -170,10 +166,11 @@ CREATE TABLE `zutatenlisten` (
   `zutatenlisteNr` int(11) NOT NULL,
   `menge` varchar(45) DEFAULT NULL,
   `rezeptNr` int(11) NOT NULL,
-  `zutatenNr` int(11) NOT NULL
+  `zutatenNr` int(11) NOT NULL,
+  PRIMARY KEY (`zutatenlisteNr`)
 ) ;
 
---
+
 -- Daten für Tabelle `zutatenlisten`
 --
 
@@ -236,6 +233,10 @@ INSERT INTO `zutatenlisten` (`zutatenlisteNr`, `menge`, `rezeptNr`, `zutatenNr`)
 (56, '200g', 10, 25),
 (57, '1 Stück', 10, 3);
 
+
+
+
+
 --
 -- Indizes der exportierten Tabellen
 --
@@ -243,69 +244,71 @@ INSERT INTO `zutatenlisten` (`zutatenlisteNr`, `menge`, `rezeptNr`, `zutatenNr`)
 --
 -- Indizes für die Tabelle `hilfsmittel`
 --
-ALTER TABLE `hilfsmittel`
-  ADD PRIMARY KEY (`hilfmittelNr`);
 
 --
 -- Indizes für die Tabelle `hilfsmittellisten`
 --
-ALTER TABLE `hilfsmittellisten`
-  ADD PRIMARY KEY (`hilfsmittellisteNr`),
-  ADD KEY `fk_hilfsmittellisten_rezepte1_idx` (`rezeptNr`),
-  ADD KEY `fk_hilfsmittellisten_hilfsmittel1_idx` (`hilfmittelNr`);
+
+
+
 
 --
 -- Indizes für die Tabelle `kategorien`
 --
-ALTER TABLE `kategorien`
-  ADD PRIMARY KEY (`kategorieNr`);
 
---
 -- Indizes für die Tabelle `rezepte`
 --
-ALTER TABLE `rezepte`
-  ADD PRIMARY KEY (`rezeptNr`),
-  ADD KEY `fk_rezepte_kategorien1_idx` (`kategorieNr`);
 
 --
 -- Indizes für die Tabelle `zutaten`
---
-ALTER TABLE `zutaten`
-  ADD PRIMARY KEY (`zutatenNr`);
+
 
 --
 -- Indizes für die Tabelle `zutatenlisten`
 --
-ALTER TABLE `zutatenlisten`
-  ADD PRIMARY KEY (`zutatenlisteNr`),
-  ADD KEY `fk_zutatenlisten_rezepte_idx` (`rezeptNr`),
-  ADD KEY `fk_zutatenlisten_zutaten1_idx` (`zutatenNr`);
 
---
 -- Constraints der exportierten Tabellen
 --
 
 --
 -- Constraints der Tabelle `hilfsmittellisten`
 --
-ALTER TABLE `hilfsmittellisten`
-  ADD CONSTRAINT `fk_hilfsmittellisten_hilfsmittel1` FOREIGN KEY (`hilfmittelNr`) REFERENCES `hilfsmittel` (`hilfmittelNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_hilfsmittellisten_rezepte1` FOREIGN KEY (`rezeptNr`) REFERENCES `rezepte` (`rezeptNr`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints der Tabelle `rezepte`
 --
-ALTER TABLE `rezepte`
-  ADD CONSTRAINT `fk_rezepte_kategorien1` FOREIGN KEY (`kategorieNr`) REFERENCES `kategorien` (`kategorieNr`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints der Tabelle `zutatenlisten`
 --
-ALTER TABLE `zutatenlisten`
-  ADD CONSTRAINT `fk_zutatenlisten_rezepte` FOREIGN KEY (`rezeptNr`) REFERENCES `rezepte` (`rezeptNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_zutatenlisten_zutaten1` FOREIGN KEY (`zutatenNr`) REFERENCES `zutaten` (`zutatenNr`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+INSERT INTO `hilfsmittellisten` (`hilfsmittellisteNr`, `rezeptNr`, `hilfmittelNr`) VALUES
+                                                                                       (1, 1, 8),
+                                                                                       (2, 2, 8),
+                                                                                       (3, 2, 7),
+                                                                                       (4, 3, 1),
+                                                                                       (5, 3, 2),
+                                                                                       (6, 4, 1),
+                                                                                       (7, 4, 8),
+                                                                                       (8, 5, 1),
+                                                                                       (9, 5, 3),
+                                                                                       (10, 5, 5),
+                                                                                       (11, 5, 6),
+                                                                                       (12, 6, 1),
+                                                                                       (13, 6, 3),
+                                                                                       (14, 6, 4),
+                                                                                       (15, 6, 9),
+                                                                                       (16, 7, 1),
+                                                                                       (17, 7, 3),
+                                                                                       (18, 7, 2),
+                                                                                       (19, 8, 1),
+                                                                                       (20, 8, 3),
+                                                                                       (21, 9, 1),
+                                                                                       (22, 9, 3),
+                                                                                       (23, 10, 1),
+                                                                                       (24, 10, 3),
+                                                                                       (25, 10, 10);
+
+

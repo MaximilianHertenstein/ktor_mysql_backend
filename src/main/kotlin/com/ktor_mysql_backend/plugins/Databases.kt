@@ -81,8 +81,8 @@ private fun mutableMaps(res: ResultIterable<MutableMap<String, Any>>): ResultIte
 }
 
 
-private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census", "shark_attack", "dese", "mini_dese", "freizeitpark", "hundeschule", "schule",
-    "bootsvermietung"))
+private val dbMap = createDBMap(arrayOf("fahrradverleih", "mondial", "census", "shark_attack", "dese", "mini_dese", "freizeitpark", "hundeschule", "schule", "bootsvermietung",
+    "musikakademie", "pm", "kochbuch", "skigebiet"))
 //
 //val z = dbMap["census"]
 //val x = z.let {

@@ -7,15 +7,7 @@
 -- Server-Version: 10.4.11-MariaDB
 -- PHP-Version: 7.2.31
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Datenbank: `skigebiet`
@@ -30,8 +22,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `betreiber` (
   `betreiberNr` int(11) NOT NULL,
   `nachname` varchar(45) DEFAULT NULL,
-  `vorname` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `vorname` varchar(45) DEFAULT NULL,
+    PRIMARY KEY (`betreiberNr`)
+) ;
 
 --
 -- Daten für Tabelle `betreiber`
@@ -53,8 +46,9 @@ INSERT INTO `betreiber` (`betreiberNr`, `nachname`, `vorname`) VALUES
 CREATE TABLE `kategorien` (
   `kategorieNr` int(11) NOT NULL,
   `farbe` varchar(45) DEFAULT NULL,
-  `schwierigkeit` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `schwierigkeit` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`kategorieNr`)
+) ;
 
 --
 -- Daten für Tabelle `kategorien`
@@ -73,8 +67,9 @@ INSERT INTO `kategorien` (`kategorieNr`, `farbe`, `schwierigkeit`) VALUES
 
 CREATE TABLE `liftarten` (
   `artNr` int(11) NOT NULL,
-  `artname` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `artname` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`artNr`)
+) ;
 
 --
 -- Daten für Tabelle `liftarten`
@@ -98,8 +93,9 @@ CREATE TABLE `lifte` (
   `laenge` double DEFAULT NULL,
   `plaetze` int(11) DEFAULT NULL,
   `betreiberNr` int(11) NOT NULL,
-  `artNr` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `artNr` int(11) NOT NULL,
+  PRIMARY KEY (`liftNr`)
+) ;
 
 --
 -- Daten für Tabelle `lifte`
@@ -131,8 +127,9 @@ INSERT INTO `lifte` (`liftNr`, `bezeichnung`, `laenge`, `plaetze`, `betreiberNr`
 CREATE TABLE `lifte_zu_pisten` (
   `lfdNr` int(11) NOT NULL,
   `liftNr` int(11) NOT NULL,
-  `pistenNr` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `pistenNr` int(11) NOT NULL,
+  PRIMARY KEY (`lfdNr`)
+) ;
 
 --
 -- Daten für Tabelle `lifte_zu_pisten`
@@ -184,8 +181,9 @@ CREATE TABLE `pisten` (
   `bezeichnung` varchar(45) DEFAULT NULL,
   `laenge` double DEFAULT NULL,
   `hoehenmeter` double DEFAULT NULL,
-  `kategorieNr` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `kategorieNr` int(11) NOT NULL,
+  PRIMARY KEY (`pistenNr`)
+) ;
 
 --
 -- Daten für Tabelle `pisten`
@@ -216,44 +214,18 @@ INSERT INTO `pisten` (`pistenNr`, `bezeichnung`, `laenge`, `hoehenmeter`, `kateg
 
 --
 -- Indizes für die Tabelle `betreiber`
---
-ALTER TABLE `betreiber`
-  ADD PRIMARY KEY (`betreiberNr`);
 
 --
 -- Indizes für die Tabelle `kategorien`
---
-ALTER TABLE `kategorien`
-  ADD PRIMARY KEY (`kategorieNr`);
+
 
 --
 -- Indizes für die Tabelle `liftarten`
---
-ALTER TABLE `liftarten`
-  ADD PRIMARY KEY (`artNr`);
 
 --
 -- Indizes für die Tabelle `lifte`
 --
-ALTER TABLE `lifte`
-  ADD PRIMARY KEY (`liftNr`),
-  ADD KEY `fk_lifte_liftarten1_idx` (`artNr`),
-  ADD KEY `fk_lifte_betreiber1_idx` (`betreiberNr`);
 
---
--- Indizes für die Tabelle `lifte_zu_pisten`
---
-ALTER TABLE `lifte_zu_pisten`
-  ADD PRIMARY KEY (`lfdNr`),
-  ADD KEY `fk_lifte_zu_pisten_lifte1_idx` (`liftNr`),
-  ADD KEY `fk_lifte_zu_pisten_pisten1_idx` (`pistenNr`);
-
---
--- Indizes für die Tabelle `pisten`
---
-ALTER TABLE `pisten`
-  ADD PRIMARY KEY (`pistenNr`),
-  ADD KEY `fk_pisten_kategorien_idx` (`kategorieNr`);
 
 --
 -- Constraints der exportierten Tabellen
@@ -262,24 +234,3 @@ ALTER TABLE `pisten`
 --
 -- Constraints der Tabelle `lifte`
 --
-ALTER TABLE `lifte`
-  ADD CONSTRAINT `fk_lifte_betreiber1` FOREIGN KEY (`betreiberNr`) REFERENCES `betreiber` (`betreiberNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_lifte_liftarten1` FOREIGN KEY (`artNr`) REFERENCES `liftarten` (`artNr`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints der Tabelle `lifte_zu_pisten`
---
-ALTER TABLE `lifte_zu_pisten`
-  ADD CONSTRAINT `fk_lifte_zu_pisten_lifte1` FOREIGN KEY (`liftNr`) REFERENCES `lifte` (`liftNr`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_lifte_zu_pisten_pisten1` FOREIGN KEY (`pistenNr`) REFERENCES `pisten` (`pistenNr`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints der Tabelle `pisten`
---
-ALTER TABLE `pisten`
-  ADD CONSTRAINT `fk_pisten_kategorien` FOREIGN KEY (`kategorieNr`) REFERENCES `kategorien` (`kategorieNr`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

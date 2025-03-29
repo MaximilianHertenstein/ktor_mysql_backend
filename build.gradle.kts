@@ -8,7 +8,7 @@ val jdbi_version: String by project
 
 plugins {
     kotlin("jvm") version "2.1.20"
-    id("io.ktor.plugin") version "3.1.1"
+    id("io.ktor.plugin") version "3.1.2"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.1.20"
     //id("com.github.johnrengelman.shadow") version "8.1.1"
 
